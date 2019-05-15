@@ -3,28 +3,21 @@ import './App.css';
 import {SearchBar} from '../SearchBar/SearchBar'
 import {SearchResults} from '../SearchResults/SearchResults'
 import {PlayList} from '../Playlist/Playlist'
-
+import Spotify from '../../util/Spotify'
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {'searchResults': [
-      {'name': 'twerk sumthin', 'artist': 'petey pablo', 'album': 'salt shaker', 'id': '789574'},
-      {'name': 'old town road', 'artist': 'lil nas x', 'album': 'country trap', 'id': '485764'},
-      {'name': 'sing it', 'artist': 'ed sheeran', 'album': 'every ed song', 'id': '986785'},
-      ], 
-      'playlistName': 'New Playlist',
-      'playlistTracks': [
-        {'name': 'twerk sumthin', 'artist': 'petey pablo', 'album': 'salt shaker', 'id': '789574'},
-        {'name': 'old town road', 'artist': 'lil nas x', 'album': 'country trap', 'id': '485764'},
-        {'name': 'sing it', 'artist': 'ed sheeran', 'album': 'every ed song', 'id': '986785'},
-        ]
+    this.state = {'searchResults': [], 
+      'playlistName': 'Jammming Playlist',
+      'playlistTracks': []
       } 
     this.addTrack = this.addTrack.bind(this);
     this.removeTrack = this.removeTrack.bind(this);
     this.updatePlaylistName = this.updatePlaylistName.bind(this);
     this.savePlaylist = this.savePlaylist.bind(this);
     this.search = this.search.bind(this);
+    this.savePlaylist = this.savePlaylist.bind(this);
   } // End of constructor
 
     addTrack(track) {
@@ -47,14 +40,18 @@ class App extends React.Component {
     }
 
     savePlaylist() {
-      let trackURIs = [];
-      for (let k=0; k < this.state.playlistTracks.length; k++) {
-        trackURIs.push(this.state.playlistTracks[k].uri)
-      }
+      let trackURIs = []
+      for (let i = 0; i < this.state.playlistTracks.length; i++) {
+        trackURIs.push(this.state.playlistTracks[i].uri) }
+      Spotify.savePlaylist(this.state.playlistName, trackURIs)
+      this.setState({'playlistName': 'Jammming Playlist',
+      'playlistTracks': []})
     }
 
-    search(input) {
-      console.log(input);
+    search(term) {
+      Spotify.search(term).then(tracks => {
+        this.setState({searchResults: tracks})
+      });
     }
 
     render () {
