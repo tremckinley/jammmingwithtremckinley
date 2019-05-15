@@ -22,8 +22,10 @@ class App extends React.Component {
 
     addTrack(track) {
       let currentPlaylist = this.state.playlistTracks;
-      if (currentPlaylist.find(pickedTrack => pickedTrack.id === track.id)) {
-        return currentPlaylist;} else {
+      if (currentPlaylist.find(pickedTrack => pickedTrack.id === track.id)) 
+      {
+        return currentPlaylist;
+      } else {
         currentPlaylist.push(track);
         this.setState({playlistTracks: currentPlaylist});
         }
@@ -44,6 +46,8 @@ class App extends React.Component {
       for (let i = 0; i < this.state.playlistTracks.length; i++) {
         trackURIs.push(this.state.playlistTracks[i].uri) }
       Spotify.savePlaylist(this.state.playlistName, trackURIs)
+
+      //Resets Playlist name and empties list
       this.setState({'playlistName': 'Jammming Playlist',
       'playlistTracks': []})
     }
@@ -57,23 +61,26 @@ class App extends React.Component {
     render () {
       return (
         <div>
+
           <h1>Ja<span className="highlight">mmm</span>ing</h1>
           <div className="App">
-            <SearchBar 
-            onSearch={this.search} />
+            <SearchBar  onSearch={this.search} />
             <div className="App-playlist">
-              <SearchResults searchResults= {this.state.searchResults} onAdd={this.addTrack} />
+              <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} />
               <PlayList 
               playlistName={this.state.playlistName} 
-              playlistTracks={this.state.playlistTracks} onRemove={this.removeTrack} 
+              playlistTracks={this.state.playlistTracks} 
+              onRemove={this.removeTrack} 
               onNameChange={this.updatePlaylistName}
-              onSave={this.savePlaylist} />
+              onSave={this.savePlaylist} 
+              />
             </div>
           </div>
+
         </div>
       )
     };
-  } // End of Class
+    
+  } // End of App
 
 export default App;
-//don't forget to import components!

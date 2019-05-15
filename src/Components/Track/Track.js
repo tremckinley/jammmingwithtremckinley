@@ -13,7 +13,7 @@ export class Track extends React.Component {
     if (this.props.isRemoval) {
       return (<button className="Track-action" onClick={this.removeTrack}> - </button>);
     } else {
-      return ( <button className="Track-action" onClick={this.addTrack} > + </button>);
+      return (<button className="Track-action" onClick={this.addTrack} > + </button>);
     };
   }
 
@@ -28,12 +28,15 @@ export class Track extends React.Component {
   render() {
     return (
       <div className="Track">
+
         <div className="Track-information">
           <h3>{this.props.track.name}</h3>
           <p>{this.props.track.artist} | {this.props.track.album}</p>
         </div>
-        {this.renderAction()}
+        {this.renderAction()}  
+
       </div>
     )  
   }  
-}
+
+} //End of Track
