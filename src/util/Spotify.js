@@ -1,5 +1,5 @@
 const clientID = '6064992ee9fc49969df673892f74fd37';
-const redirectURI = 'https://jammming_wit_tremckinley.surge.sh';
+const redirectURI = 'http://localhost:3000/';
 
 let accessToken;
 let expiresIn;
@@ -9,6 +9,7 @@ const Spotify = {
     //Access Token has already been established
     if (accessToken) {
       return accessToken;
+      
     }
     //Access Token has not been established but is in URL
     else if 
@@ -64,7 +65,21 @@ const Spotify = {
       headers: headers,
       body: JSON.stringify({ uris: URIs })
     });
-  } //End of savePlaylist
+  }, //End of savePlaylist
+
+
+  async getUsersName() {
+    
+      const accessToken  = this.getAccessToken();
+      const headers  = {Authorization: `Bearer ${accessToken}`};
+
+      const response = await fetch('https://api.spotify.com/v1/me', { headers: headers });
+      const jsonResponse = await response.json();
+      const whoIsThis = await jsonResponse.display_name;
+      console.log(whoIsThis);
+      return whoIsThis    
+  }
+
 
 
 } //End of "Spotify"
