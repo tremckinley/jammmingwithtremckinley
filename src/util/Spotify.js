@@ -5,6 +5,7 @@ let accessToken;
 let expiresIn;
 
 const Spotify = {
+
   getAccessToken() {
     //Access Token has already been established
     if (accessToken) {
@@ -68,20 +69,45 @@ const Spotify = {
   }, //End of savePlaylist
 
 
-  async getUsersName() {
-    
+//It's Inside "Spotify" Variable
+
+  getUsersName() {
+    const accessToken  = this.getAccessToken();
+    const headers  = {Authorization: `Bearer ${accessToken}`};
+    let whoIsThis;
+
+    let helpMe = fetch('https://api.spotify.com/v1/me', { headers: headers }).then(response => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error('Request failed');
+    }, networkError => console.log(networkError.message)
+    ).then(jsonResponse => {
+      whoIsThis=jsonResponse.display_name;
+      console.log(whoIsThis);
+      return whoIsThis;
+    })
+    return helpMe;
+  }
+
+} //End of "Spotify" Variable
+
+console.log(Spotify.getUsersName());
+export default Spotify;
+
+
+
+
+
+
+
+/*  async getUsersName() {
       const accessToken  = this.getAccessToken();
       const headers  = {Authorization: `Bearer ${accessToken}`};
-
+    
       const response = await fetch('https://api.spotify.com/v1/me', { headers: headers });
       const jsonResponse = await response.json();
       const whoIsThis = await jsonResponse.display_name;
       console.log(whoIsThis);
       return whoIsThis    
-  }
-
-
-
-} //End of "Spotify"
-
-export default Spotify;
+  }*/

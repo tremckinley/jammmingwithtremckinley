@@ -3,15 +3,20 @@ import React from 'react';
 class SignIn extends React.Component {
 
   usersName() {
-    this.props.usersName()
+   return this.props.usersName();
+  }
+
+  renderAction() {
+    return (
+        <p>Signed in as {this.usersName()}. Not you?</p>
+    )
   }
 
   render() {
-
     return (
-      <div>
-        <p>Signed in as {this.usersName()}. Not you?</p>
-      </div>
+    <div>  
+    {this.renderAction()}
+    </div>
     )
   }
 
