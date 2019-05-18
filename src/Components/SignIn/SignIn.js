@@ -6,12 +6,19 @@ class SignIn extends React.Component {
     this.props.onGetName()
   }
   
+  renderAction() {
+    if (this.props.usersName) {
+      return (<p className="verify">Signed in as: {this.props.usersName}</p>);
+    } else {
+      return (<p className="verify" id="notYou">Please Sign In</p>);
+    };
+  }
+
   render() {
     return (
     <div>
       <div className='signIn'>  
-      <p className="verify">Signed in as {this.props.usersName}. 
-      <a id='notYou' href='#'>Not you?</a></p>
+      {this.renderAction()}
       </div>
     </div>
     )
