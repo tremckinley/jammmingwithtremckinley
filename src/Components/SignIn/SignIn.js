@@ -1,21 +1,18 @@
 import React from 'react';
+import './SignIn.css';
 
 class SignIn extends React.Component {
-
-  usersName() {
-   return this.props.usersName();
+  componentWillMount () {
+    this.props.onGetName()
   }
-
-  renderAction() {
-    return (
-        <p>Signed in as {this.usersName()}. Not you?</p>
-    )
-  }
-
+  
   render() {
     return (
-    <div>  
-    {this.renderAction()}
+    <div>
+      <div className='signIn'>  
+      <p className="verify">Signed in as {this.props.usersName}. 
+      <a id='notYou' href='#'>Not you?</a></p>
+      </div>
     </div>
     )
   }

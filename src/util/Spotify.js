@@ -71,12 +71,12 @@ const Spotify = {
 
 //It's Inside "Spotify" Variable
 
-  getUsersName() {
+ async getUsersName() {
     const accessToken  = this.getAccessToken();
     const headers  = {Authorization: `Bearer ${accessToken}`};
     let whoIsThis;
 
-    let helpMe = fetch('https://api.spotify.com/v1/me', { headers: headers }).then(response => {
+    let helpMe = await fetch('https://api.spotify.com/v1/me', { headers: headers }).then(response => {
       if (response.ok) {
         return response.json();
       }
@@ -84,30 +84,12 @@ const Spotify = {
     }, networkError => console.log(networkError.message)
     ).then(jsonResponse => {
       whoIsThis=jsonResponse.display_name;
-      console.log(whoIsThis);
       return whoIsThis;
     })
+    console.log(helpMe);
     return helpMe;
   }
 
 } //End of "Spotify" Variable
 
-console.log(Spotify.getUsersName());
 export default Spotify;
-
-
-
-
-
-
-
-/*  async getUsersName() {
-      const accessToken  = this.getAccessToken();
-      const headers  = {Authorization: `Bearer ${accessToken}`};
-    
-      const response = await fetch('https://api.spotify.com/v1/me', { headers: headers });
-      const jsonResponse = await response.json();
-      const whoIsThis = await jsonResponse.display_name;
-      console.log(whoIsThis);
-      return whoIsThis    
-  }*/

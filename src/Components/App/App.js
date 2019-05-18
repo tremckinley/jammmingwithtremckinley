@@ -11,7 +11,8 @@ class App extends React.Component {
     super(props);
     this.state = {'searchResults': [], 
       'playlistName': 'Jammming Playlist',
-      'playlistTracks': []
+      'playlistTracks': [],
+      'usersName': ''
     } 
     this.addTrack = this.addTrack.bind(this);
     this.removeTrack = this.removeTrack.bind(this);
@@ -60,8 +61,9 @@ class App extends React.Component {
       });
     }
 
-    getUsersName() {
-      Spotify.getUsersName();
+     getUsersName() {
+       Spotify.getUsersName()
+      .then(onFulfilled => {this.setState( {usersName: onFulfilled} )} );
     }
 
     render () {
@@ -71,7 +73,7 @@ class App extends React.Component {
           <h1>Ja<span className="highlight">mmm</span>ing</h1>
           
           <div className="App">
-          <SignIn usersName={this.getUsersName} />
+          <SignIn onGetName={this.getUsersName} usersName={this.state.usersName} />
             <SearchBar  onSearch={this.search} />
             <div className="App-playlist">
               <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} />
