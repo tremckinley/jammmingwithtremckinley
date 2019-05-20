@@ -3,6 +3,7 @@ const redirectURI = 'http://localhost:3000/';
 
 let accessToken;
 let expiresIn;
+let myId;
 
 const Spotify = {
 
@@ -18,16 +19,18 @@ const Spotify = {
       accessToken = window.location.href.match(/access_token=([^&]*)/)[1];
       expiresIn = window.location.href.match(/expires_in=([^&]*)/)[1];
 
-      window.setTimeout(() => accessToken = '', expiresIn * 1000);
+      window.setTimeout(() => accessToken = '', expiresIn*10);
       window.history.pushState('Access Token', null, '/');
       return accessToken;
-      // Redirects without token
+      // Requests token from Spoitfy servers
     } else {
       window.location = `https://accounts.spotify.com/authorize?client_id=${clientID}&response_type=token&scope=playlist-modify-public&redirect_uri=${redirectURI}`;
     }
   }, // End of getAccessToken
 
   async search(term) {
+    if (!term) {term = 'empty'};
+    
     const accessToken  = this.getAccessToken();
     const fetcher = await fetch(`https://api.spotify.com/v1/search?type=track&q=${term}`, 
     { headers: { Authorization: `Bearer ${accessToken}` } });
@@ -68,15 +71,17 @@ const Spotify = {
     });
   }, //End of savePlaylist
 
-
-//It's Inside "Spotify" Variable
-
  async getUsersName() {
+  if (myId) {
+    return myId;  
+  }
+
+  else {
     const accessToken  = this.getAccessToken();
     const headers  = {Authorization: `Bearer ${accessToken}`};
     let whoIsThis;
 
-    let helpMe = await fetch('https://api.spotify.com/v1/me', { headers: headers }).then(response => {
+    let fetchedName = await fetch('https://api.spotify.com/v1/me', { headers: headers }).then(response => {
       if (response.ok) {
         return response.json();
       }
@@ -86,9 +91,9 @@ const Spotify = {
       whoIsThis=jsonResponse.display_name;
       return whoIsThis;
     })
-    console.log(helpMe);
-    return helpMe;
+    return fetchedName;
   }
+ }
 
 } //End of "Spotify" Variable
 

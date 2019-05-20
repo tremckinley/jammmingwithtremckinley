@@ -8,7 +8,7 @@ class SignIn extends React.Component {
   
   renderAction() {
     if (this.props.usersName) {
-      return (<p className="verify">Signed in as: {this.props.usersName}</p>);
+      return (<p className="verify">Signed in as: {this.props.usersName} </p>);
     } else {
       return (<p className="verify" id="notYou">Please Sign In</p>);
     };
@@ -27,9 +27,6 @@ class SignIn extends React.Component {
 }
 
 export default SignIn;
-
-
-
 
 
 

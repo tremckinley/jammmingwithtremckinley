@@ -21,6 +21,7 @@ class App extends React.Component {
     this.search = this.search.bind(this);
     this.savePlaylist = this.savePlaylist.bind(this);
     this.getUsersName = this.getUsersName.bind(this);
+    //this.logOut = this.logOut.bind(this);
   } // End of constructor
 
     addTrack(track) {
