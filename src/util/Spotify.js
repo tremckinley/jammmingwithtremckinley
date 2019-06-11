@@ -1,5 +1,5 @@
 const clientID = '6064992ee9fc49969df673892f74fd37';
-const redirectURI = 'http://localhost:3000/';
+const redirectURI = 'http://funky-beat.surge.sh';
 
 let accessToken;
 let expiresIn;
