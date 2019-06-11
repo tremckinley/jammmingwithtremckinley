@@ -1,0 +1,16 @@
+.signIn {
+  padding-top: 10px;
+}
+
+.verify {
+  padding: 20px;
+  background-color: rgba(110, 106, 106, 0.7);
+  width: fit-content;
+  align-content: end;
+  border-radius: 10px;
+}
+#notYou {
+  font-style: italic;
+  font-weight: lighter;
+  color: white;
+}

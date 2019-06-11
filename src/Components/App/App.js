@@ -4,20 +4,24 @@ import {SearchBar} from '../SearchBar/SearchBar'
 import {SearchResults} from '../SearchResults/SearchResults'
 import {PlayList} from '../Playlist/Playlist'
 import Spotify from '../../util/Spotify'
+import SignIn from '../SignIn/SignIn';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {'searchResults': [], 
       'playlistName': 'Jammming Playlist',
-      'playlistTracks': []
-      } 
+      'playlistTracks': [],
+      'usersName': ''
+    } 
     this.addTrack = this.addTrack.bind(this);
     this.removeTrack = this.removeTrack.bind(this);
     this.updatePlaylistName = this.updatePlaylistName.bind(this);
     this.savePlaylist = this.savePlaylist.bind(this);
     this.search = this.search.bind(this);
     this.savePlaylist = this.savePlaylist.bind(this);
+    this.getUsersName = this.getUsersName.bind(this);
+    //this.logOut = this.logOut.bind(this);
   } // End of constructor
 
     addTrack(track) {
@@ -58,12 +62,19 @@ class App extends React.Component {
       });
     }
 
+     getUsersName() {
+       Spotify.getUsersName()
+      .then(onFulfilled => {this.setState( {usersName: onFulfilled} )} );
+    }
+
     render () {
       return (
         <div>
 
           <h1>Ja<span className="highlight">mmm</span>ing</h1>
+          
           <div className="App">
+          <SignIn onGetName={this.getUsersName} usersName={this.state.usersName} />
             <SearchBar  onSearch={this.search} />
             <div className="App-playlist">
               <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} />

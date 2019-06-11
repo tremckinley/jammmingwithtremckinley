@@ -1,5 +1,3 @@
-"signout" branch of repo has this feature included.
-
 Link to Google Doc:
 
 https://docs.google.com/document/d/1YgTZtZ-2Z6nCLSVtlm31ICorM9_BJGstyBngxWYS_LI/edit?usp=sharing
